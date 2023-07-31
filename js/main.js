@@ -5,7 +5,8 @@ const paperMoveButton = document.querySelector('.js-paper-move-button');
 const scissorsMoveButton = document.querySelector('.js-scissors-move-button');
 
 const gameResult = document.querySelector('.js-game-result');
-const gameMoves = document.querySelector('.js-game-moves');
+const gameMovesEmoji = document.querySelector('.js-game-moves-emoji');
+const gameMovesText = document.querySelector('.js-game-moves-text');
 
 let score = JSON.parse(localStorage.getItem('score')) || {
     wins: 0,
@@ -16,15 +17,15 @@ let score = JSON.parse(localStorage.getItem('score')) || {
 updateGameScore();
 
 rockMoveButton.addEventListener('click', () => {
-    playGame('Kamień');
+    playGame('Rock');
 });
 
 paperMoveButton.addEventListener('click', () => {
-    playGame('Papier');
+    playGame('Paper');
 });
 
 scissorsMoveButton.addEventListener('click', () => {
-    playGame('Nożyce');
+    playGame('Scissors');
 });
 
 const resetScoreButton = document.querySelector('.js-reset-score-button');
@@ -60,28 +61,28 @@ function playGame(playerMove) {
     const computerMove = getRandomComputerMove();
     let result = '';
 
-    if(playerMove === 'Kamień') {
-        if(computerMove === 'Kamień') {
+    if(playerMove === 'Rock') {
+        if(computerMove === 'Rock') {
             result = 'Remis!';
-        } else if(computerMove === 'Papier') {
+        } else if(computerMove === 'Paper') {
             result = 'Przegrałeś/aś!';
-        } else if(computerMove === 'Nożyce') {
+        } else if(computerMove === 'Scissors') {
             result = 'Wygrałeś/aś!';
         }
-    } else if(playerMove === 'Papier') {
-        if(computerMove === 'Kamień') {
+    } else if(playerMove === 'Paper') {
+        if(computerMove === 'Rock') {
             result = 'Wygrałeś/aś!';
-        } else if(computerMove === 'Papier') {
+        } else if(computerMove === 'Paper') {
             result = 'Remis!';
-        } else if(computerMove === 'Nożyce') {
+        } else if(computerMove === 'Scissors') {
             result = 'Przegrałeś/aś!';
         }
-    } else if(playerMove === 'Nożyce') {
-        if(computerMove === 'Kamień') {
+    } else if(playerMove === 'Scissors') {
+        if(computerMove === 'Rock') {
             result = 'Przegrałeś/aś!';
-        } else if(computerMove === 'Papier') {
+        } else if(computerMove === 'Paper') {
             result = 'Wygrałeś/aś!';
-        } else if(computerMove === 'Nożyce') {
+        } else if(computerMove === 'Scissors') {
             result = 'Remis!';
         }
     }
@@ -95,7 +96,8 @@ function playGame(playerMove) {
     }
 
     gameResult.textContent = result;
-    gameMoves.innerHTML = `Ty: <b>${playerMove}</b>,<br>Komputer: <b>${computerMove}</b>.`;
+    gameMovesEmoji.innerHTML = `Ty <img src="../images/${playerMove.toLowerCase()}-emoji.png" alt="${playerMove}"> <img src="../images/${computerMove.toLowerCase()}-emoji.png" alt="${computerMove}"> Komputer`;
+    gameMovesText.innerHTML = `You: <b>${playerMove}</b>, Computer: <b>${computerMove}</b>.`;
 
     localStorage.setItem('score', JSON.stringify(score));
 
@@ -109,11 +111,11 @@ function playGame(playerMove) {
 
 document.body.addEventListener('keydown', (event) => {
     if(event.key === 'k' || event.key === 'K') {
-        playGame('Kamień');
+        playGame('Rock');
     } else if(event.key === 'p' || event.key === 'P') {
-        playGame('Papier');
+        playGame('Paper');
     } else if(event.key === 'n' || event.key === 'N') {
-        playGame('Nożyce');
+        playGame('Scissors');
     } 
 });
 
@@ -139,7 +141,8 @@ function resetScore() {
     localStorage.removeItem('score');
 
     gameResult.textContent = '';
-    gameMoves.innerHTML = '';
+    gameMovesEmoji.innerHTML = '';
+    gameMovesText.innerHTML = '';
 
     updateGameScore();
 }
@@ -149,11 +152,11 @@ function getRandomComputerMove() {
     let computerMove = '';
 
     if(randomNumber >= 0 && randomNumber < 1 / 3) {
-        computerMove = 'Kamień';
+        computerMove = 'Rock';
     } else if(randomNumber >= 1 / 3 && randomNumber < 2 / 3) { 
-        computerMove = 'Papier';
+        computerMove = 'Paper';
     } else if(randomNumber >= 2 / 3 && randomNumber < 1) {
-        computerMove = 'Nożyce';
+        computerMove = 'Scissors';
     }
 
     return computerMove;

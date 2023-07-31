@@ -226,8 +226,9 @@ h5 {
 
 /* ======== HEADER CSS END ======== */
 /* ======== GAME LAYOUT CSS START ======== */
-.game-layout {
-  overflow: hidden !important;
+.game-layout img {
+  width: auto;
+  height: 60px;
 }
 .game-layout .game-move {
   font-size: 1rem;
@@ -252,10 +253,6 @@ h5 {
   border: 2px solid #c3073f;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-}
-.game-layout .player-move-button img {
-  width: auto;
-  height: 60px;
 }
 .game-layout .player-move-button:hover {
   background-color: rgba(195, 7, 63, 0.2);
